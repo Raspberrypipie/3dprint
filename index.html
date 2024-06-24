@@ -10,7 +10,26 @@
         <h1>3D Print Cam</h1>
     </header>
     <main>
-        <!-- Main content can go here if needed -->
+        <video id="webcam" autoplay playsinline></video>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('webcam');
+            // Check if getUserMedia is supported
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                // Request the video stream
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(stream => {
+                        // Set the video element's srcObject to the stream
+                        video.srcObject = stream;
+                    })
+                    .catch(error => {
+                        console.error("Error accessing the webcam: ", error);
+                    });
+            } else {
+                console.error("getUserMedia not supported by this browser.");
+            }
+        });
+        </script>
     </main>
     <footer>
         <p>&copy; 2024 3D Print. All rights reserved.</p>
